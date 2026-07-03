@@ -1,9 +1,9 @@
 import mongoose, { type Document } from "mongoose";
 
-interface News {
+export interface News {
     id: string;
     title: string;
-    tags: string[];
+    category: string;
     description: string;
     media: string;
 }
@@ -14,9 +14,10 @@ const newsSchema = new mongoose.Schema<News>({
         required: true,
         maxLength: 300
     },
-    tags: {
-        type: [],
-        default: ["news"]
+    category: {
+        type: String,
+        enum: ["Other", "Crime", "Report"],
+        default: "Other"
     },
     description: {
         type: String,
@@ -29,5 +30,5 @@ const newsSchema = new mongoose.Schema<News>({
     timestamps: true
 })
 
-const News = mongoose.model<News>("News", newsSchema)
+const News = mongoose.models.News || mongoose.model<News>("News", newsSchema)
 export default News;
