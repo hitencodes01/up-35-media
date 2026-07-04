@@ -1,11 +1,13 @@
 "use client"
 import Footer from "@/components/Footer";
 import HeroSection from "@/components/HeroSection";
+import Loading from "@/components/Loading";
 import Navbar from "@/components/Navbar";
 import NewsGrid from "@/components/NewsGrid";
 import { useEffect, useState } from "react";
 
 export default function Home() {
+
   const [news, setNews] = useState<{ _id: string, title: string, description: string, category: "Other" | "Crime" | "Report", media?: File, createdAt: string }[]>([])
   useEffect(() => {
     fetchData()
@@ -16,8 +18,10 @@ export default function Home() {
       const data = await res.json()
       console.log(data.news)
       setNews(data.news)
+
     }
   }
+
   return (
     <>
       <Navbar />

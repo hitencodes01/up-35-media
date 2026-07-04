@@ -33,10 +33,10 @@ export default async function NewsDetail({
       <Navbar />
       <div
         style={{
-          backgroundImage: `url(/hero.png)`, 
+          backgroundImage: `url(/hero.jpeg)`,
           backgroundSize: "cover",
           backgroundPosition: "center",
-          height: "100vh",
+          height: "100%",
           width: "100%",
         }}
         className="py-5"

@@ -12,7 +12,7 @@ export default function Navbar() {
             <div className="flex justify-between items-center w-full h-16 px-6">
                 {/* Logo */}
                 <div className="h-10 w-10 rounded-full overflow-hidden">
-                    <img src="/logo.png" className="rounded-full w-full h-full object-cover" alt="logo" />
+                    <img src="/logo.jpeg" className="rounded-full w-full h-full object-cover" alt="logo" />
                 </div>
 
 

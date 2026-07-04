@@ -1,6 +1,7 @@
 "use client"
 
 import Footer from "@/components/Footer"
+import Loading from "@/components/Loading"
 import Navbar from "@/components/Navbar"
 import NewsGrid from "@/components/NewsGrid"
 import { useEffect, useState } from "react"
@@ -24,6 +25,9 @@ export default function Page() {
     } finally {
       setLoading(false)
     }
+  }
+  if(loading){
+    return <Loading what="News"/>
   }
 
   return (
