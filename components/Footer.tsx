@@ -10,7 +10,7 @@ export default function Footer() {
           {/* Brand */}
           <div className="flex items-center gap-3 bg-neutral-900 border border-amber-400/30 rounded-full px-5 py-2.5">
             <Image
-              src="/logo.png"
+              src="/logo.jpeg"
               height={40}
               width={40}
               alt="UP 35 Media logo"

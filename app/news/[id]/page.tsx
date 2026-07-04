@@ -3,6 +3,7 @@ import { connectDB } from "@/config/db";
 import News from "@/models/news";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { Share2Icon, ShareIcon } from "lucide-react";
 
 async function getNews(id: string) {
   await connectDB();
@@ -61,6 +62,7 @@ export default async function NewsDetail({
               </Link>{" "}
               · {date}
             </p>
+            {/* <button className="bg-green-600 hover:bg-green-700 text-white px-3 py-1 text-xs rounded-2xl cursor-pointer"><Share2Icon color="black"/></button> */}
           </div>
 
           <img

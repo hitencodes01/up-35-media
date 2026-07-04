@@ -82,7 +82,7 @@ export default function About() {
               Get In <span className="text-amber-400">Touch</span>
             </h3>
 
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
               {/* Email */}
               <div className="flex flex-col items-center text-center gap-3 rounded-xl border border-neutral-800 bg-neutral-950 p-6 hover:border-amber-400/40 transition-colors">
                 <div className="w-11 h-11 rounded-full bg-amber-400/10 flex items-center justify-center">
@@ -91,18 +91,7 @@ export default function About() {
                   </svg>
                 </div>
                 <p className="text-xs uppercase tracking-wider text-neutral-500">Email</p>
-                <p className="text-sm sm:text-base font-medium break-all">mediahubunnao</p>
-              </div>
-
-              {/* Contact */}
-              <div className="flex flex-col items-center text-center gap-3 rounded-xl border border-neutral-800 bg-neutral-950 p-6 hover:border-amber-400/40 transition-colors">
-                <div className="w-11 h-11 rounded-full bg-amber-400/10 flex items-center justify-center">
-                  <svg className="w-5 h-5 text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-                  </svg>
-                </div>
-                <p className="text-xs uppercase tracking-wider text-neutral-500">Contact</p>
-                <p className="text-sm sm:text-base font-medium">+91 9236661111</p>
+                <p className="text-sm sm:text-base font-medium break-all">mediahubunnao@gmail.com</p>
               </div>
 
               {/* City */}

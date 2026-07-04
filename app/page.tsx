@@ -7,7 +7,7 @@ import NewsGrid from "@/components/NewsGrid";
 import { useEffect, useState } from "react";
 
 export default function Home() {
-
+  const [loading, setLoading] = useState(true)
   const [news, setNews] = useState<{ _id: string, title: string, description: string, category: "Other" | "Crime" | "Report", media?: File, createdAt: string }[]>([])
   useEffect(() => {
     fetchData()
@@ -16,12 +16,10 @@ export default function Home() {
     const res = await fetch("/api/getNews")
     if (res.status === 200) {
       const data = await res.json()
-      console.log(data.news)
       setNews(data.news)
-
+      setLoading(false)
     }
   }
-
   return (
     <>
       <Navbar />
@@ -29,7 +27,7 @@ export default function Home() {
       <div className="text-md md:text-3xl text-center font-bold p-2 bg-amber-400 mt-6">
         Latest News from Unnao by Anuj Mishra
       </div>
-      <NewsGrid news={news} />
+      {loading ? <Loading what="News" /> : <NewsGrid news={news} />}
       <Footer />
     </>
   )
