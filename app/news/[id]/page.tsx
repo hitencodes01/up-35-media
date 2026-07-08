@@ -1,29 +1,63 @@
+"use client"
 import Link from "next/link";
-import { connectDB } from "@/config/db";
-import News from "@/models/news";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Share2Icon, ShareIcon } from "lucide-react";
+import { use, useEffect, useState } from "react";
+import Loading from "@/components/Loading";
 
-async function getNews(id: string) {
-  await connectDB();
-  const item = await News.findById(id).lean();
-  return JSON.parse(JSON.stringify(item));
-}
-
-export default async function NewsDetail({
+export default function NewsPage({
   params,
 }: {
   params: Promise<{ id: string }>;
 }) {
-  const { id } = await params;
-  const item = await getNews(id);
+  const { id } = use(params);
+  const [loading ,setLoading] = useState(true)
+  const [news, setNews] = useState<{ _id: string, title: string, description: string, createdAt: string, category: "Report" | "Crime" | "Other", media: string } | null>(null)
+  async function getNews(id: string) {
+    try {
+      const res = await fetch(`/api/news/get/${id}`)
+      const data = await res.json()
+      setNews(data.news)
+      setLoading(false)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  useEffect(() => {
+    getNews(id)
+  }, [id])
 
-  if (!item) {
+  async function handleShare() {
+    if (!news) return
+    const shareUrl = `${window.location.origin}/news/${news._id}`
+
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: news.title,
+          text: news.title,
+          url: shareUrl,
+        })
+      } catch (error) {
+        console.log("Share cancelled or failed", error)
+      }
+    } else {
+      // fallback for desktop browsers without Web Share API
+      await navigator.clipboard.writeText(shareUrl)
+      alert("Link copied to clipboard!")
+    }
+  }
+
+  if(loading){
+    return <Loading what="news"/>
+  }
+
+  if (!news) {
     return <div className="p-10 text-center">News not found.</div>;
   }
 
-  const date = new Date(item.createdAt).toLocaleDateString("en-IN", {
+  const date = new Date(news.createdAt).toLocaleDateString("en-IN", {
     day: "numeric",
     month: "short",
     year: "numeric",
@@ -44,15 +78,15 @@ export default async function NewsDetail({
       >
         <article className="bg-white max-w-3xl mx-auto px-5 py-5 rounded-2xl sm:max-w-4xl">
           <span className="text-xs font-semibold uppercase tracking-wide text-orange-600">
-            {item.category}
+            {news.category}
           </span>
 
           <h1 className="text-3xl sm:text-4xl font-bold mt-2 mb-4 leading-tight text-neutral-900">
-            {item.title}
+            {news.title}
           </h1>
 
-          <div className="flex items-center gap-2 mb-6">
-            <div className="w-8 h-8 rounded-full bg-orange-100 flex items-center justify-center text-xs font-bold text-orange-600">
+          <div className="flex newss-center gap-2 mb-6">
+            <div className="w-8 h-8 rounded-full bg-orange-100 flex newss-center justify-center text-xs font-bold text-orange-600">
               AM
             </div>
             <p className="text-sm text-neutral-500">
@@ -62,17 +96,24 @@ export default async function NewsDetail({
               </Link>{" "}
               · {date}
             </p>
+            <button
+              onClick={handleShare}
+              className="ml-auto bg-green-600 hover:bg-green-700 text-white px-3 py-1 text-xs rounded-2xl cursor-pointer flex items-center gap-1"
+            >
+              <Share2Icon size={14} />
+              Share
+            </button>
             {/* <button className="bg-green-600 hover:bg-green-700 text-white px-3 py-1 text-xs rounded-2xl cursor-pointer"><Share2Icon color="black"/></button> */}
           </div>
 
           <img
-            src={item.media}
-            alt={item.title}
+            src={news.media}
+            alt={news.title}
             className="w-[400px] rounded-xl mb-6 object-cover"
           />
 
           <p className="text-neutral-700 leading-relaxed whitespace-pre-line text-base">
-            {item.description}
+            {news.description}
           </p>
         </article>
       </div>
